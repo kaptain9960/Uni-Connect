@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Edit Profile — Uni-Connect{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1 class="h2 fw-bold text-white mb-1"><i class="bi bi-pencil-square me-2"></i>Edit Profile</h1>
+    <p class="text-muted mb-0">Update your personal information</p>
+  </div>
+</div>
+<div class="container pb-5" style="max-width:600px;">
+  <div class="glass-panel p-5">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for field in form %}
+      <div class="mb-4">
+        <label class="form-label">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}<div class="form-text text-muted small">{{ field.help_text }}</div>{% endif %}
+        {% if field.errors %}<div class="text-danger small mt-1">{{ field.errors|join:", " }}</div>{% endif %}
+      </div>
+      {% endfor %}
+      <div class="d-flex gap-3">
+        <button type="submit" class="btn btn-primary-glow px-4">Save Changes</button>
+        <a href="{% url 'accounts:profile' %}" class="btn btn-outline-glass px-4">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

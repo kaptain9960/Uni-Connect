@@ -1,0 +1,64 @@
+{% extends 'base.html' %} {% block title %}Your Chats — Uni-Connect{% endblock
+%} {% block content %}
+<div class="page-header">
+  <div class="container">
+    <div
+      class="d-flex align-items-center justify-content-between flex-wrap gap-3"
+    >
+      <div>
+        <h1 class="display-6 fw-bold text-white mb-1">
+          <i class="bi bi-chat-dots me-2"></i>Your Chats
+        </h1>
+        <p class="text-muted mb-0">
+          Continue private conversations with classmates and lecturers.
+        </p>
+      </div>
+      <a href="{% url 'forum:thread_list' %}" class="btn btn-outline-glass"
+        >Browse Threads</a
+      >
+    </div>
+  </div>
+</div>
+
+<div class="container pb-5">
+  <div class="glass-panel p-4">
+    {% if rooms %}
+    <div class="list-group chat-room-list">
+      {% for room in rooms %}
+      <a
+        href="{% url 'forum:chat_room' room.pk %}"
+        class="list-group-item list-group-item-action glass-list-item"
+      >
+        <div class="d-flex align-items-center justify-content-between gap-3">
+          <div>
+            <div class="fw-semibold text-white">
+              {{
+              room.get_other_user(request.user).get_full_name|default:room.get_other_user(request.user).username
+              }}
+            </div>
+            <div class="text-muted small">
+              {{ room.messages.last.content|default:'No messages
+              yet'|truncatechars:80 }}
+            </div>
+          </div>
+          <div class="text-end small text-muted">
+            {% if room.messages.last %} {{
+            room.messages.last.created_at|timesince }} ago {% else %} New chat
+            {% endif %}
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+      <i class="bi bi-chat-dots fs-1 text-muted d-block mb-3"></i>
+      <p class="text-muted">
+        You have no private chats yet. Open a peer profile to start a new
+        conversation.
+      </p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
