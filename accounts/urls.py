@@ -10,6 +10,8 @@ urlpatterns = [
     path('password-reset/', views.password_reset_request_view, name='password_reset_request'),
     path('password-reset/confirm/', views.password_reset_confirm_view, name='password_reset_confirm'),
     path('profile/', views.profile_view, name='profile'),
-    path('profile/<str:username>/', views.profile_view, name='profile_user'),
     path('profile/edit/', views.edit_profile_view, name='edit_profile'),
+    path('profile/<str:username>/', views.profile_view, name='profile_user'),
+    
+
 ]

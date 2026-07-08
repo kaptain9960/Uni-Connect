@@ -71,30 +71,60 @@ def logout_view(request):
 
 @login_required
 def profile_view(request, username=None):
-    if username:
-        profile_user = get_object_or_404(User, username=username)
-    else:
+    """
+    Display either the logged-in user's profile
+    or another user's profile.
+    """
+
+    if username is None:
         profile_user = request.user
-    threads = profile_user.threads.filter(is_deleted=False).order_by('-created_at')[:10]
-    return render(request, 'accounts/profile.html', {
-        'profile_user': profile_user,
-        'threads': threads,
-    })
+    else:
+        profile_user = get_object_or_404(User, username=username)
+
+    threads = (
+        profile_user.threads
+        .filter(is_deleted=False)
+        .order_by("-created_at")
+    )
+
+    return render(
+        request,
+        "accounts/profile.html",
+        {
+            "profile_user": profile_user,
+            "threads": threads,
+        },
+    )
 
 
 @login_required
 def edit_profile_view(request):
-    if request.method == 'POST':
-        form = ProfileEditForm(request.POST, request.FILES, instance=request.user)
+    """
+    Edit logged-in user's profile.
+    """
+
+    if request.method == "POST":
+        form = ProfileEditForm(
+            request.POST,
+            request.FILES,
+            instance=request.user,
+        )
+
         if form.is_valid():
             form.save()
-            messages.success(request, 'Profile updated successfully!')
-            return redirect('accounts:profile')
+            messages.success(request, "Profile updated successfully!")
+            return redirect("accounts:profile")
+
     else:
         form = ProfileEditForm(instance=request.user)
-    return render(request, 'accounts/edit_profile.html', {'form': form})
 
-
+    return render(
+        request,
+        "accounts/edit_profile.html",
+        {
+            "form": form,
+        },
+    )
 def verify_email_view(request):
     if request.method == 'POST':
         form = VerifyOTPForm(request.POST)

@@ -700,6 +700,43 @@ body.cursor-hover .cursor-ring {
   line-height: 1.6;
 }
 
+.thread-body{
+    color:rgba(255,255,255,.82);
+    line-height:1.75;
+    margin-top:.5rem;
+}
+
+.thread-body p{
+    margin-bottom:1rem;
+}
+
+.thread-body br{
+    display:block;
+    margin-top:.35rem;
+    content:"";
+}
+
+.reply-box{
+    margin-bottom:1.5rem;
+}
+
+.reply-box:last-child{
+    margin-bottom:0;
+}
+
+.reply-box .text-muted{
+    margin-bottom:0;
+}
+
+.reply-box audio{
+    width:100%;
+}
+
+.reply-box img{
+    max-width:100%;
+    border-radius:12px;
+}
+
 /* ── REPLY BOX ── */
 .reply-box {
   background: rgba(160, 165, 177, 0.03);
@@ -716,6 +753,19 @@ body.cursor-hover .cursor-ring {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 600;
+}
+
+.reply-content{
+    margin-top:.35rem;
+    padding-left:50px;
+    color:rgba(255,255,255,.82);
+    line-height:1.75;
+}
+.thread-posted{
+    margin-bottom:1rem;
+}
+.glass-panel .btn-outline-glass{
+    margin-top:.5rem;
 }
 
 /* ── PAGE HEADER ── */

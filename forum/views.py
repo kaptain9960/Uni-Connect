@@ -110,11 +110,11 @@ def thread_detail(request, pk):
         user_bookmarked = Bookmark.objects.filter(user=request.user, thread=thread).exists()
         user_voted_thread = Vote.objects.filter(user=request.user, thread=thread).exists()
     return render(request, 'forum/thread_detail.html', {
-        'thread': thread,
-        'replies': replies,
-        'reply_form': reply_form,
-        'user_bookmarked': user_bookmarked,
-        'user_voted_thread': user_voted_thread,
+        "thread": thread,
+        "replies": replies,
+        "reply_form": reply_form,
+        "user_bookmarked": user_bookmarked,
+        "user_voted_thread": user_voted_thread,
     })
 
 
@@ -254,9 +254,26 @@ def leaderboard(request):
 
 @login_required
 def chat_list(request):
-    rooms = request.user.chat_rooms.prefetch_related('participants')
-    return render(request, 'forum/chat_list.html', {'rooms': rooms})
+    rooms = (
+        request.user.chat_rooms
+        .prefetch_related('participants', 'messages')
+        .all()
+    )
 
+    chat_rooms = []
+
+    for room in rooms:
+        last_message = room.messages.order_by('-created_at').first()
+
+        chat_rooms.append({
+            'room': room,
+            'other_user': room.get_other_user(request.user),
+            'last_message': last_message,
+        })
+
+    return render(request, 'forum/chat_list.html', {
+        'chat_rooms': chat_rooms,
+    })
 
 @login_required
 def chat_room(request, room_pk):
@@ -278,10 +295,12 @@ def chat_room(request, room_pk):
         form = ChatMessageForm()
 
     messages_qs = room.messages.select_related('sender')
+    other_user = room.get_other_user(request.user)
     return render(request, 'forum/chat_room.html', {
         'room': room,
         'messages': messages_qs,
         'form': form,
+        'other_user': other_user,
     })
 
 

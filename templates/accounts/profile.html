@@ -21,21 +21,23 @@
             >{{ profile_user.get_role_display }}</span
           >
           {% if profile_user.department %}
-          <span class="text-muted"
-            ><i class="bi bi-grid-3x3-gap me-1"></i>{{
-            profile_user.department.name }}</span
-          >
-          {% endif %} {% if profile_user.matric_number %}
-          <span class="text-muted"
-            ><i class="bi bi-card-text me-1"></i>{{ profile_user.matric_number
-            }}</span
-          >
-          {% endif %}
+        <span>
+            <i class="bi bi-grid-3x3-gap"></i>
+            {{ profile_user.department.name }}
+        </span>
+        {% endif %}
+
+        {% if profile_user.matric_number %}
+        <span>
+            <i class="bi bi-card-text"></i>
+            {{ profile_user.matric_number }}
+        </span>
+        {% endif %}
         </div>
         {% if profile_user.bio %}
         <p class="text-muted small mt-2 mb-0">{{ profile_user.bio }}</p>
         {% endif %}
-      </div>
+        </div>
       {% if user == profile_user %}
       <a
         href="{% url 'accounts:edit_profile' %}"
