@@ -108,4 +108,7 @@ else:
 
 DEFAULT_FROM_EMAIL = 'Uni-Connect <no-reply@uniconnect.local>'
 
-CSRF_TRUSTED_ORIGINS = ['https://*.replit.dev', 'https://*.repl.co', 'https://*.replit.app']
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.replit.dev', 'https://*.repl.co', 'https://*.replit.app',
+    'https://*.onrender.com',
+]
