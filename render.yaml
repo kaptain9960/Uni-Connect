@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: uni-connect
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn uniconnect.wsgi:application"
