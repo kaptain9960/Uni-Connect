@@ -8,4 +8,4 @@ python manage.py collectstatic --noinput
 
 python manage.py migrate
 
-python seed_expanded.py
+python seed.py
