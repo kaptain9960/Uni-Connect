@@ -30,10 +30,13 @@
             {{ form.q }}
           </div>
           <div class="mb-3">
+<<<<<<< HEAD
             <label class="form-label small">Department</label>
             {{ form.department }}
           </div>
           <div class="mb-3">
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
             <label class="form-label small">Course</label>
             {{ form.course }}
           </div>
@@ -41,6 +44,7 @@
             <label class="form-label small">Status</label>
             {{ form.status }}
           </div>
+<<<<<<< HEAD
           {% if user.is_authenticated and user.school %}
           <div class="form-check mb-3">
             <input class="form-check-input" type="checkbox" name="scope" value="all" id="scopeAll" {% if show_all_schools %}checked{% endif %} onchange="this.form.submit()">
@@ -49,6 +53,8 @@
             </label>
           </div>
           {% endif %}
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
           <button type="submit" class="btn btn-primary-glow w-100 btn-sm">Apply Filters</button>
           <a href="{% url 'forum:thread_list' %}" class="btn btn-outline-glass w-100 btn-sm mt-2">Clear</a>
         </form>

@@ -418,6 +418,9 @@ This project is released under the [MIT License](LICENSE). You are free to use, 
 Made with 💜 at the University of Nigeria, Nsukka
 
 </div>
+<<<<<<< HEAD
 # Uni-Connect-Global
 # Uni-Connect-Global
 # Uni-Connect-Global
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b

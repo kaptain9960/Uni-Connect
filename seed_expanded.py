@@ -9,7 +9,11 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'uniconnect.settings')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 django.setup()
 
+<<<<<<< HEAD
 from forum.models import School, Department, Course, Thread, Reply, Tag, ChatRoom, ChatMessage
+=======
+from forum.models import Department, Course, Thread, Reply, Tag, ChatRoom, ChatMessage
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 from accounts.models import User
 
 tags = {}
@@ -18,11 +22,14 @@ for name, color in [('exam', '#f59e0b'), ('assignment', '#6C63FF'), ('lecture', 
     t, _ = Tag.objects.get_or_create(name=name, defaults={'color': color})
     tags[name] = t
 
+<<<<<<< HEAD
 unn, _ = School.objects.get_or_create(
     name='University of Nigeria, Nsukka',
     defaults={'short_name': 'UNN', 'school_type': 'university', 'state': 'Enugu'},
 )
 
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 dept_data = [
     ('Computer Science', 'CSC', 'Faculty of Physical Sciences', 'Programming, algorithms, AI, databases and software engineering.', '#6C63FF', 'bi-cpu'),
     ('Mechanical Engineering', 'MEG', 'Faculty of Engineering', 'Thermodynamics, fluid mechanics, machine design.', '#f59e0b', 'bi-gear'),
@@ -36,7 +43,11 @@ dept_data = [
 ]
 depts = {}
 for name, code, faculty, desc, color, icon in dept_data:
+<<<<<<< HEAD
     d, _ = Department.objects.get_or_create(school=unn, code=code, defaults={
+=======
+    d, _ = Department.objects.get_or_create(code=code, defaults={
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
         'name': name, 'faculty': faculty, 'description': desc, 'color': color, 'icon': icon
     })
     depts[code] = d
@@ -80,7 +91,11 @@ lecturers = {}
 for uname, fname, lname, dept, rep in lecturer_data:
     u, created = User.objects.get_or_create(username=uname, defaults={
         'email': f'{uname}@unn.edu.ng', 'first_name': fname, 'last_name': lname,
+<<<<<<< HEAD
         'role': 'lecturer', 'school': unn, 'department': dept, 'reputation': rep,
+=======
+        'role': 'lecturer', 'department': dept, 'reputation': rep,
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     })
     if created:
         u.set_password('lecturer123')
@@ -101,7 +116,11 @@ students = {}
 for uname, fname, lname, dept, matric, rep in student_data:
     u, created = User.objects.get_or_create(username=uname, defaults={
         'email': f'{uname}@unn.edu.ng', 'first_name': fname, 'last_name': lname,
+<<<<<<< HEAD
         'role': 'student', 'school': unn, 'department': dept, 'matric_number': matric, 'reputation': rep,
+=======
+        'role': 'student', 'department': dept, 'matric_number': matric, 'reputation': rep,
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     })
     if created:
         u.set_password('student123')
@@ -270,6 +289,7 @@ for uname_a, uname_b, messages in chat_conversations:
         msg_count += 1
 
 print("Expanded seed complete!")
+<<<<<<< HEAD
 
 # --- Nationwide demo: a second institution, isolated from UNN -------------
 unilag, _ = School.objects.get_or_create(
@@ -307,6 +327,8 @@ Thread.objects.get_or_create(
     },
 )
 print(f"  Schools: {School.objects.count()} (includes a UNILAG demo institution to prove cross-school isolation)")
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 print(f"  Departments: {Department.objects.count()}")
 print(f"  Courses: {Course.objects.count()}")
 print(f"  Users: {User.objects.count()}")

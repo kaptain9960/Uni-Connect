@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
+<<<<<<< HEAD
 from django.utils.text import slugify
 
 
@@ -63,6 +64,13 @@ class Department(models.Model):
     )
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=10)
+=======
+
+
+class Department(models.Model):
+    name = models.CharField(max_length=200)
+    code = models.CharField(max_length=10, unique=True)
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     faculty = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     color = models.CharField(max_length=7, default='#6C63FF')
@@ -71,6 +79,7 @@ class Department(models.Model):
 
     class Meta:
         ordering = ['name']
+<<<<<<< HEAD
         unique_together = ['school', 'code']
         indexes = [
             models.Index(fields=['school', 'code']),
@@ -79,6 +88,10 @@ class Department(models.Model):
     def __str__(self):
         if self.school_id:
             return f"{self.name} ({self.school})"
+=======
+
+    def __str__(self):
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
         return self.name
 
     def get_course_count(self):
@@ -156,6 +169,7 @@ class Thread(models.Model):
     def has_verified_answer(self):
         return self.replies.filter(is_verified=True).exists()
 
+<<<<<<< HEAD
     @property
     def department(self):
         return self.course.department
@@ -164,6 +178,8 @@ class Thread(models.Model):
     def school(self):
         return self.course.department.school
 
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 
 class Reply(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE, related_name='replies')

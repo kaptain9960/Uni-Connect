@@ -1,5 +1,9 @@
 from django import forms
+<<<<<<< HEAD
 from .models import Thread, Reply, Course, Department
+=======
+from .models import Thread, Reply, Course
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 
 
 class ThreadForm(forms.ModelForm):
@@ -18,6 +22,7 @@ class ThreadForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         department = kwargs.pop('department', None)
+<<<<<<< HEAD
         school = kwargs.pop('school', None)
         super().__init__(*args, **kwargs)
         self._restricted_course_ids = None
@@ -40,6 +45,11 @@ class ThreadForm(forms.ModelForm):
         if course and self._restricted_course_ids is not None and course.id not in self._restricted_course_ids:
             raise forms.ValidationError('Please choose a course from your own school and department.')
         return course
+=======
+        super().__init__(*args, **kwargs)
+        if department:
+            self.fields['course'].queryset = Course.objects.filter(department=department, is_active=True)
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 
 
 class ReplyForm(forms.ModelForm):
@@ -70,18 +80,24 @@ class ChatMessageForm(forms.Form):
 class SearchForm(forms.Form):
     q = forms.CharField(
         max_length=200,
+<<<<<<< HEAD
         required=False,
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
         widget=forms.TextInput(attrs={
             'class': 'form-control glass-input',
             'placeholder': 'Search threads, courses, topics...',
         })
     )
+<<<<<<< HEAD
     department = forms.ModelChoiceField(
         queryset=Department.objects.all(),
         required=False,
         empty_label='All Departments',
         widget=forms.Select(attrs={'class': 'form-select glass-input'})
     )
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     course = forms.ModelChoiceField(
         queryset=Course.objects.filter(is_active=True),
         required=False,

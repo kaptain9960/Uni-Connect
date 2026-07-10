@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+<<<<<<< HEAD
 {% block title %}Uni-Connect — Academic Forum{% endblock %}
+=======
+{% block title %}Uni-Connect — UNN Academic Forum{% endblock %}
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 {% block body_class %}has-hero{% endblock %}
 
 {% block content %}
@@ -10,6 +14,7 @@
 ═══════════════════════════════════════ -->
 <section class="hero-section position-relative overflow-hidden">
 
+<<<<<<< HEAD
  <!-- ── IMAGE CROSSFADE SLIDESHOW (Ken Burns) ── -->
  <div class="hero-slides" aria-hidden="true">
     <div class="hero-slide" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Senate%20Building%2C%20University%20of%20Benin%2C%20Nigeria.jpg');animation-delay:0s;"></div>
@@ -26,6 +31,17 @@
     <div class="hero-slide" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/University%20Gate%2C%20University%20of%20Nigeria%2C%20Nsukka%2C%20Nigeria.jpg');animation-delay:66s;"></div>
     <div class="hero-slide" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Christ%20Church%20Chapel%2C%20University%20of%20Nigeria%2C%20Nsukka.jpg');animation-delay:72s;"></div>
 </div>
+=======
+  <!-- ── IMAGE CROSSFADE SLIDESHOW (Ken Burns) ── -->
+  <div class="hero-slides" aria-hidden="true">
+    <div class="hero-slide" style="background-image:url('{% static "display2.jpeg" %}');animation-delay:0s;"></div>
+    <div class="hero-slide" style="background-image:url('{% static "display3.jpeg" %}');animation-delay:6s;"></div>
+    <div class="hero-slide" style="background-image:url('{% static "display4.jpeg" %}');animation-delay:12s;"></div>
+    <div class="hero-slide" style="background-image:url('{% static "display5.jpeg" %}');animation-delay:18s;"></div>
+    <div class="hero-slide" style="background-image:url('{% static "display6.jpeg" %}');animation-delay:24s;"></div>
+  </div>
+
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
   <!-- Slide counter dots -->
   <div class="hero-slide-dots" aria-hidden="true">
     <span class="slide-dot active"></span>
@@ -44,7 +60,11 @@
       <div class="hero-eyebrow mb-4 anim-fade-rise anim-d1">
         <span class="hero-eyebrow-pill">
           <span class="hero-pill-dot"></span>
+<<<<<<< HEAD
           Academic Knowledge Hub &middot; Nigeria
+=======
+          Academic Knowledge Hub &middot; UNN
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
         </span>
       </div>
 
@@ -63,7 +83,11 @@
       <!-- Sub -->
       <p class="hero-sub mx-auto mb-5 anim-fade-rise anim-d4"
          style="max-width:520px;color:rgba(255,255,255,0.65);font-family:var(--font-mono);font-size:.88rem;line-height:1.8;">
+<<<<<<< HEAD
         The structured academic forum for Nigerian University students — replace WhatsApp chaos with organized, searchable, course-specific discussions.
+=======
+        The structured academic forum for University of Nigeria, Nsukka students — replace WhatsApp chaos with organized, searchable, course-specific discussions.
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
       </p>
 
       <!-- CTA Buttons -->
@@ -360,7 +384,11 @@
         <i class="bi bi-mortarboard-fill"></i>
       </div>
       <h2 class="display-heading text-white mb-3" style="font-size:clamp(1.8rem,4vw,2.8rem);">Ready to stop<br/>suffering alone?</h2>
+<<<<<<< HEAD
       <p style="color:var(--muted);line-height:1.75;margin-bottom:32px;font-size:.92rem;font-family:var(--font-mono);">Join students from universities, polytechnics, and colleges of education across Nigeria — sharing knowledge, helping each other pass, and building the academic archive your juniors will thank you for.</p>
+=======
+      <p style="color:var(--muted);line-height:1.75;margin-bottom:32px;font-size:.92rem;font-family:var(--font-mono);">Join UNN students sharing knowledge, helping each other pass, and building the academic archive your juniors will thank you for.</p>
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
       <a href="{% url 'accounts:register' %}" class="btn btn-primary-glow btn-lg px-5">
         <i class="bi bi-person-plus me-2"></i>Join Uni-Connect Free
       </a>

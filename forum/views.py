@@ -16,6 +16,7 @@ def home(request):
     total_threads = Thread.objects.filter(is_deleted=False).count()
     total_users = User.objects.count()
     resolved_threads = Thread.objects.filter(status='resolved', is_deleted=False).count()
+<<<<<<< HEAD
     recent_threads = Thread.objects.filter(is_deleted=False).select_related('author', 'course__department')
 
     # Personalize for logged-in users: show their own school's departments
@@ -26,6 +27,9 @@ def home(request):
 
     recent_threads = recent_threads[:6]
 
+=======
+    recent_threads = Thread.objects.filter(is_deleted=False).select_related('author', 'course__department')[:6]
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     return render(request, 'marketing/index.html', {
         'departments': departments,
         'total_threads': total_threads,
@@ -36,20 +40,31 @@ def home(request):
 
 
 def department_list(request):
+<<<<<<< HEAD
     departments = Department.objects.select_related('school').annotate(
         num_courses=Count('courses', distinct=True),
         num_threads=Count('courses__threads', filter=Q(courses__threads__is_deleted=False), distinct=True)
     ).order_by('name')
     if request.user.is_authenticated and request.user.school_id:
         departments = departments.filter(school=request.user.school)
+=======
+    departments = Department.objects.annotate(
+        num_courses=Count('courses', distinct=True),
+        num_threads=Count('courses__threads', filter=Q(courses__threads__is_deleted=False), distinct=True)
+    ).order_by('name')
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     return render(request, 'forum/departments.html', {'departments': departments})
 
 
 def department_detail(request, pk):
+<<<<<<< HEAD
     department = get_object_or_404(Department.objects.select_related('school'), pk=pk)
     if request.user.is_authenticated and not request.user.can_access_department(department):
         messages.error(request, "That department belongs to another institution, so you can't view its discussions.")
         return redirect('forum:departments')
+=======
+    department = get_object_or_404(Department, pk=pk)
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     courses = Course.objects.filter(department=department, is_active=True).annotate(
         thread_count=Count('threads', filter=Q(threads__is_deleted=False))
     )
@@ -64,10 +79,14 @@ def department_detail(request, pk):
 
 
 def course_detail(request, pk):
+<<<<<<< HEAD
     course = get_object_or_404(Course.objects.select_related('department__school'), pk=pk)
     if request.user.is_authenticated and not request.user.can_access_department(course.department):
         messages.error(request, "That course belongs to another institution, so you can't view its discussions.")
         return redirect('forum:departments')
+=======
+    course = get_object_or_404(Course, pk=pk)
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     threads_qs = Thread.objects.filter(course=course, is_deleted=False).select_related('author').annotate(
         reply_count_ann=Count('replies', filter=Q(replies__is_deleted=False))
     )
@@ -93,6 +112,7 @@ def course_detail(request, pk):
 
 def thread_list(request):
     threads_qs = Thread.objects.filter(is_deleted=False).select_related(
+<<<<<<< HEAD
         'author', 'course__department__school'
     ).annotate(reply_count_ann=Count('replies', filter=Q(replies__is_deleted=False)))
 
@@ -107,12 +127,22 @@ def thread_list(request):
     if form.is_valid():
         q = form.cleaned_data.get('q')
         department = form.cleaned_data.get('department')
+=======
+        'author', 'course__department'
+    ).annotate(reply_count_ann=Count('replies', filter=Q(replies__is_deleted=False)))
+    form = SearchForm(request.GET or None)
+    if form.is_valid():
+        q = form.cleaned_data.get('q')
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
         course = form.cleaned_data.get('course')
         status = form.cleaned_data.get('status')
         if q:
             threads_qs = threads_qs.filter(Q(title__icontains=q) | Q(content__icontains=q))
+<<<<<<< HEAD
         if department:
             threads_qs = threads_qs.filter(course__department=department)
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
         if course:
             threads_qs = threads_qs.filter(course=course)
         if status:
@@ -122,17 +152,24 @@ def thread_list(request):
     return render(request, 'forum/thread_list.html', {
         'page_obj': page,
         'form': form,
+<<<<<<< HEAD
         'show_all_schools': show_all_schools,
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     })
 
 
 def thread_detail(request, pk):
+<<<<<<< HEAD
     thread = get_object_or_404(
         Thread.objects.select_related('course__department__school'), pk=pk, is_deleted=False
     )
     if request.user.is_authenticated and not request.user.can_access_department(thread.course.department):
         messages.error(request, "That discussion belongs to another institution, so you can't view it.")
         return redirect('forum:thread_list')
+=======
+    thread = get_object_or_404(Thread, pk=pk, is_deleted=False)
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     Thread.objects.filter(pk=pk).update(views=F('views') + 1)
     replies = thread.replies.filter(is_deleted=False, parent=None).select_related(
         'author', 'verified_by'
@@ -156,6 +193,7 @@ def thread_detail(request, pk):
 def create_thread(request, course_pk=None):
     course = None
     if course_pk:
+<<<<<<< HEAD
         course = get_object_or_404(Course.objects.select_related('department__school'), pk=course_pk)
         if not request.user.can_access_department(course.department):
             messages.error(request, "You can only start discussions within your own institution.")
@@ -168,6 +206,11 @@ def create_thread(request, course_pk=None):
 
     if request.method == 'POST':
         form = ThreadForm(request.POST, request.FILES, **form_kwargs)
+=======
+        course = get_object_or_404(Course, pk=course_pk)
+    if request.method == 'POST':
+        form = ThreadForm(request.POST, request.FILES)
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
         if form.is_valid():
             thread = form.save(commit=False)
             thread.author = request.user
@@ -179,11 +222,16 @@ def create_thread(request, course_pk=None):
         initial = {}
         if course:
             initial['course'] = course
+<<<<<<< HEAD
         form = ThreadForm(initial=initial, **form_kwargs)
 
     courses = Course.objects.filter(is_active=True).select_related('department')
     if request.user.school_id:
         courses = courses.filter(department__school=request.user.school)
+=======
+        form = ThreadForm(initial=initial)
+    courses = Course.objects.filter(is_active=True).select_related('department')
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     return render(request, 'forum/create_thread.html', {
         'form': form,
         'course': course,
@@ -193,12 +241,16 @@ def create_thread(request, course_pk=None):
 
 @login_required
 def add_reply(request, thread_pk):
+<<<<<<< HEAD
     thread = get_object_or_404(
         Thread.objects.select_related('course__department__school'), pk=thread_pk, is_deleted=False
     )
     if not request.user.can_access_department(thread.course.department):
         messages.error(request, "You can only reply to discussions within your own institution.")
         return redirect('forum:thread_list')
+=======
+    thread = get_object_or_404(Thread, pk=thread_pk, is_deleted=False)
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     if request.method == 'POST':
         form = ReplyForm(request.POST, request.FILES)
         if form.is_valid():

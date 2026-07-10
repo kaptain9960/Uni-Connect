@@ -1,6 +1,7 @@
 import os
 import dj_database_url
 from pathlib import Path
+<<<<<<< HEAD
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,6 +12,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # this is a no-op if no .env file is present.
 load_dotenv(BASE_DIR / '.env')
 
+=======
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'uni-connect-dev-secret-key-change-in-production-2024')
 
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
@@ -102,6 +108,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 # Email Configuration
+<<<<<<< HEAD
 #
 # Real emails are sent whenever SMTP credentials are supplied via
 # environment variables (EMAIL_HOST_USER / EMAIL_HOST_PASSWORD) — this
@@ -119,10 +126,17 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 
 if EMAIL_HOST_USER and EMAIL_HOST_PASSWORD:
+=======
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+else:
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
     EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
     EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
+<<<<<<< HEAD
     EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False') == 'True'
     EMAIL_TIMEOUT = int(os.environ.get('EMAIL_TIMEOUT', 10))
 elif DEBUG:
@@ -132,6 +146,12 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'Uni-Connect <no-reply@uniconnect.local>')
+=======
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+
+DEFAULT_FROM_EMAIL = 'Uni-Connect <no-reply@uniconnect.local>'
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.replit.dev', 'https://*.repl.co', 'https://*.replit.app',

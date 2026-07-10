@@ -1,7 +1,11 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import User
+<<<<<<< HEAD
 from forum.models import School, Department
+=======
+from forum.models import Department
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 
 
 class RegisterForm(UserCreationForm):
@@ -9,6 +13,7 @@ class RegisterForm(UserCreationForm):
     first_name = forms.CharField(max_length=50, required=True)
     last_name = forms.CharField(max_length=50, required=True)
     role = forms.ChoiceField(choices=[('student', 'Student'), ('lecturer', 'Lecturer')])
+<<<<<<< HEAD
     school = forms.ModelChoiceField(
         queryset=School.objects.filter(is_active=True),
         required=True,
@@ -19,16 +24,24 @@ class RegisterForm(UserCreationForm):
         required=True,
         empty_label='Select your school first...',
     )
+=======
+    department = forms.ModelChoiceField(queryset=Department.objects.all(), required=False)
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     matric_number = forms.CharField(max_length=20, required=False)
 
     class Meta:
         model = User
+<<<<<<< HEAD
         fields = ['username', 'email', 'first_name', 'last_name', 'role', 'school', 'department', 'matric_number', 'password1', 'password2']
+=======
+        fields = ['username', 'email', 'first_name', 'last_name', 'role', 'department', 'matric_number', 'password1', 'password2']
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs.update({'class': 'form-control glass-input'})
+<<<<<<< HEAD
         self.fields['department'].widget.attrs.update({'id': 'id_department'})
         self.fields['school'].widget.attrs.update({'id': 'id_school'})
 
@@ -54,6 +67,8 @@ class RegisterForm(UserCreationForm):
         if school and department and department.school_id != school.id:
             self.add_error('department', 'Please choose a department that belongs to the selected school.')
         return cleaned_data
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 
 
 class LoginForm(AuthenticationForm):
@@ -64,6 +79,7 @@ class LoginForm(AuthenticationForm):
 
 
 class ProfileEditForm(forms.ModelForm):
+<<<<<<< HEAD
     school = forms.ModelChoiceField(
         queryset=School.objects.filter(is_active=True),
         required=True,
@@ -78,6 +94,11 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'bio', 'school', 'department', 'matric_number', 'avatar']
+=======
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'bio', 'department', 'matric_number', 'avatar']
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
         widgets = {
             'bio': forms.Textarea(attrs={'rows': 3, 'class': 'form-control glass-input'}),
         }
@@ -87,6 +108,7 @@ class ProfileEditForm(forms.ModelForm):
         for name, field in self.fields.items():
             if name != 'bio':
                 field.widget.attrs.update({'class': 'form-control glass-input'})
+<<<<<<< HEAD
         self.fields['department'].widget.attrs.update({'id': 'id_department'})
         self.fields['school'].widget.attrs.update({'id': 'id_school'})
 
@@ -111,6 +133,8 @@ class ProfileEditForm(forms.ModelForm):
         if school and department and department.school_id != school.id:
             self.add_error('department', 'Please choose a department that belongs to the selected school.')
         return cleaned_data
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 
 
 class VerifyOTPForm(forms.Form):

@@ -12,7 +12,10 @@ urlpatterns = [
     path('profile/', views.profile_view, name='profile'),
     path('profile/edit/', views.edit_profile_view, name='edit_profile'),
     path('profile/<str:username>/', views.profile_view, name='profile_user'),
+<<<<<<< HEAD
     path('ajax/load-departments/', views.load_departments, name='ajax_load_departments'),
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     
 
 ]

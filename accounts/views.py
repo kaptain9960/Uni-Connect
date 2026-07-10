@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.utils import timezone
 from django.conf import settings
+<<<<<<< HEAD
 from django.http import JsonResponse
 from .forms import (
     RegisterForm, LoginForm, ProfileEditForm, VerifyOTPForm,
@@ -18,6 +19,12 @@ import logging
 import smtplib
 
 logger = logging.getLogger(__name__)
+=======
+from .forms import RegisterForm, LoginForm, ProfileEditForm, PasswordResetRequestForm, PasswordResetConfirmForm
+from .models import User, OTPCode
+import random
+import string
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 
 
 def build_otp_code(length=6):
@@ -25,6 +32,7 @@ def build_otp_code(length=6):
 
 
 def send_otp_email(user, purpose):
+<<<<<<< HEAD
     """Create an OTP code and email it to the user.
 
     Returns True if the message was successfully handed off to the mail
@@ -40,11 +48,17 @@ def send_otp_email(user, purpose):
     code = build_otp_code()
     expires_at = timezone.now() + timezone.timedelta(minutes=20)
     otp = OTPCode.objects.create(user=user, code=code, purpose=purpose, expires_at=expires_at)
+=======
+    code = build_otp_code()
+    expires_at = timezone.now() + timezone.timedelta(minutes=20)
+    OTPCode.objects.create(user=user, code=code, purpose=purpose, expires_at=expires_at)
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 
     subject = 'Uni-Connect verification code'
     if purpose == 'email_verification':
         message = f'Hello {user.get_full_name() or user.username},\n\nUse this code to verify your email address: {code}\n\nIf you did not create an account, ignore this message.'
     else:
+<<<<<<< HEAD
         message = f'Hello {user.get_full_name() or user.username},\n\nUse this code to reset your password: {code}\n\nThis code expires in 20 minutes. If you did not request a password reset, ignore this message and your password will remain unchanged.'
 
     try:
@@ -64,6 +78,17 @@ def send_otp_email(user, purpose):
         logger.error('Failed to send %s email to %s: %s', purpose, user.email, exc)
         otp.delete()
         return False
+=======
+        message = f'Hello {user.get_full_name() or user.username},\n\nUse this code to reset your password: {code}\n\nIf you did not request a password reset, ignore this message.'
+
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [user.email],
+        fail_silently=True,
+    )
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 
 
 def register_view(request):
@@ -186,6 +211,7 @@ def resend_otp_view(request):
         email = request.POST.get('email')
         user = User.objects.filter(email__iexact=email).first()
         if user:
+<<<<<<< HEAD
             if send_otp_email(user, 'email_verification'):
                 messages.success(request, 'Verification code sent to your email!')
             else:
@@ -193,6 +219,10 @@ def resend_otp_view(request):
                     request,
                     "We couldn't send the verification email right now. Please try again shortly."
                 )
+=======
+            send_otp_email(user, 'email_verification')
+            messages.success(request, 'Verification code sent to your email!')
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
         else:
             messages.error(request, 'No account found with that email address.')
         return redirect('accounts:verify_email')
@@ -206,6 +236,7 @@ def password_reset_request_view(request):
             email = form.cleaned_data['email']
             user = User.objects.filter(email__iexact=email).first()
             if user:
+<<<<<<< HEAD
                 if send_otp_email(user, 'password_reset'):
                     messages.success(request, 'Check your email for the password reset code.')
                     return redirect('accounts:password_reset_confirm')
@@ -216,11 +247,18 @@ def password_reset_request_view(request):
                 )
             else:
                 messages.error(request, 'No account was found with that email address.')
+=======
+                send_otp_email(user, 'password_reset')
+                messages.success(request, 'Check your email for the password reset code.')
+                return redirect('accounts:password_reset_confirm')
+            messages.error(request, 'No account was found with that email address.')
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     else:
         form = PasswordResetRequestForm()
     return render(request, 'accounts/password_reset_request.html', {'form': form})
 
 
+<<<<<<< HEAD
 def load_departments(request):
     """AJAX endpoint: return the departments belonging to a given school as
     JSON, so the registration and profile-edit forms can populate the
@@ -233,6 +271,8 @@ def load_departments(request):
     return JsonResponse({'departments': data})
 
 
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 def password_reset_confirm_view(request):
     if request.method == 'POST':
         form = PasswordResetConfirmForm(request.POST)

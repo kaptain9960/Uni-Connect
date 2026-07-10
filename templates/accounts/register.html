@@ -19,7 +19,11 @@
             <i class="bi bi-mortarboard-fill"></i>
           </div>
           <h1 class="h3 fw-700 text-white mb-1">Join Uni-Connect</h1>
+<<<<<<< HEAD
           <p class="text-muted small">Create your Uni-Connect academic account</p>
+=======
+          <p class="text-muted small">Create your UNN academic account</p>
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
         </div>
 
         <form method="post">
@@ -50,6 +54,7 @@
               {{ form.role }}
               {% if form.role.errors %}<div class="text-danger small mt-1">{{ form.role.errors|join:", " }}</div>{% endif %}
             </div>
+<<<<<<< HEAD
             <div class="col-12">
               <label class="form-label">School / Institution</label>
               {{ form.school }}
@@ -59,6 +64,11 @@
               <label class="form-label">Department</label>
               {{ form.department }}
               <div class="form-text text-muted small mt-1" id="dept-help">Select your school first to see its departments.</div>
+=======
+            <div class="col-6">
+              <label class="form-label">Department</label>
+              {{ form.department }}
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
               {% if form.department.errors %}<div class="text-danger small mt-1">{{ form.department.errors|join:", " }}</div>{% endif %}
             </div>
             <div class="col-12">
@@ -95,6 +105,7 @@
 
 {% block extra_js %}
 <script>gsap.from(".glass-panel", { opacity: 0, y: 40, duration: 0.8, ease: "power3.out" });</script>
+<<<<<<< HEAD
 <script>
 (function () {
   const schoolSelect = document.getElementById('id_school');
@@ -148,4 +159,6 @@
   }
 })();
 </script>
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 {% endblock %}

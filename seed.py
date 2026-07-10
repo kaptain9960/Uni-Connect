@@ -6,7 +6,11 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'uniconnect.settings')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 django.setup()
 
+<<<<<<< HEAD
 from forum.models import School, Department, Course, Thread, Reply, Tag
+=======
+from forum.models import Department, Course, Thread, Reply, Tag
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 from accounts.models import User
 
 
@@ -16,12 +20,15 @@ for name, color in [('exam', '#f59e0b'), ('assignment', '#6C63FF'), ('lecture', 
     t, _ = Tag.objects.get_or_create(name=name, defaults={'color': color})
     tags[name] = t
 
+<<<<<<< HEAD
 # School
 unn, _ = School.objects.get_or_create(
     name='University of Nigeria, Nsukka',
     defaults={'short_name': 'UNN', 'school_type': 'university', 'state': 'Enugu'},
 )
 
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 # Departments
 dept_data = [
     ('Computer Science', 'CSC', 'Faculty of Physical Sciences', 'Programming, algorithms, AI, databases and software engineering.', '#6C63FF', 'bi-cpu'),
@@ -35,7 +42,11 @@ dept_data = [
 ]
 depts = {}
 for name, code, faculty, desc, color, icon in dept_data:
+<<<<<<< HEAD
     d, _ = Department.objects.get_or_create(school=unn, code=code, defaults={
+=======
+    d, _ = Department.objects.get_or_create(code=code, defaults={
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
         'name': name, 'faculty': faculty, 'description': desc, 'color': color, 'icon': icon
     })
     depts[code] = d
@@ -74,7 +85,11 @@ for dept, code, title, level, sem, units in course_data:
 # Users
 admin_user, _ = User.objects.get_or_create(username='admin', defaults={
     'email': 'admin@unn.edu.ng', 'first_name': 'Admin', 'last_name': 'UNN',
+<<<<<<< HEAD
     'role': 'admin', 'is_staff': True, 'is_superuser': True, 'reputation': 500, 'school': unn,
+=======
+    'role': 'admin', 'is_staff': True, 'is_superuser': True, 'reputation': 500,
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 })
 if _:
     admin_user.set_password('admin123')
@@ -82,7 +97,11 @@ if _:
 
 lecturer1, _ = User.objects.get_or_create(username='dr.okafor', defaults={
     'email': 'okafor@unn.edu.ng', 'first_name': 'Dr. Chukwuemeka', 'last_name': 'Okafor',
+<<<<<<< HEAD
     'role': 'lecturer', 'school': unn, 'department': csc, 'reputation': 320,
+=======
+    'role': 'lecturer', 'department': csc, 'reputation': 320,
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
 })
 if _:
     lecturer1.set_password('lecturer123')
@@ -99,7 +118,11 @@ student_data = [
 for uname, fname, lname, dept, matric, rep in student_data:
     u, _ = User.objects.get_or_create(username=uname, defaults={
         'email': f'{uname}@unn.edu.ng', 'first_name': fname, 'last_name': lname,
+<<<<<<< HEAD
         'role': 'student', 'school': unn, 'department': dept, 'matric_number': matric, 'reputation': rep,
+=======
+        'role': 'student', 'department': dept, 'matric_number': matric, 'reputation': rep,
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     })
     if _:
         u.set_password('student123')

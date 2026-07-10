@@ -11,9 +11,12 @@ class User(AbstractUser):
     ]
     is_email_verified = models.BooleanField(default=False)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='student')
+<<<<<<< HEAD
     school = models.ForeignKey(
         'forum.School', on_delete=models.SET_NULL, null=True, blank=True, related_name='members'
     )
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     department = models.ForeignKey(
         'forum.Department', on_delete=models.SET_NULL, null=True, blank=True, related_name='members'
     )
@@ -30,6 +33,7 @@ class User(AbstractUser):
     def is_lecturer(self):
         return self.role == 'lecturer'
 
+<<<<<<< HEAD
     def can_access_department(self, department):
         """Users may only view/post in a department that belongs to their
         own school. Superusers and staff are exempt. If a user has not
@@ -42,6 +46,8 @@ class User(AbstractUser):
             return True
         return department.school_id == self.school_id
 
+=======
+>>>>>>> 6f8229a2a3ef6aa253951614120b14cd7e43809b
     @property
     def thread_count(self):
         return self.threads.filter(is_deleted=False).count()
